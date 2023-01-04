@@ -21,6 +21,9 @@
       <button class="ms-2" @click="openTwitter()">Open Twitter</button>
       <button class="ms-2" @click="next()">Next</button>
     </div>
+    <div class="fs-5">
+      {{ this.counter+1 }}/{{ this.following.length+1 }} ({{((this.counter+1)/(this.following.length+1)).toFixed(2)}}%)
+    </div>
   </div>
 </body>
 
