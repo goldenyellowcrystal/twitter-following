@@ -22,7 +22,11 @@
       <button class="ms-2" @click="next()">Next</button>
     </div>
     <div class="fs-5">
-      {{ this.counter+1 }}/{{ this.following.length+1 }} ({{((this.counter+1)/(this.following.length+1)).toFixed(2)}}%)
+      {{ this.counter+1 }}/{{ this.following.length+1 }} ({{(((this.counter+1)/(this.following.length+1))*100).toFixed(2)}}%)
+    </div>
+    <div>
+      <input type="checkbox" id="useApp" value="Y" v-model="useTwitterApp">
+      <label for="useApp">Open Link with Twitter App</label>
     </div>
   </div>
 </body>
@@ -33,12 +37,16 @@
       return {
         message: 'Hello Vue!',
         following: [],
-        counter: 0
+        counter: 0,
+        useTwitterApp: []
       }
     },
     methods: {
       openTwitter() {
-        let link = "https://twitter.app.link/banner_switch_to_app?%24deeplink_path=twitter%3A%2F%2Fuser%3Fscreen_name%3D" + this.following[this.counter].username;
+        let link = (this.useTwitterApp.length > 0)
+          ? "https://twitter.app.link/banner_switch_to_app?%24deeplink_path=twitter%3A%2F%2Fuser%3Fscreen_name%3D" + this.following[this.counter].username
+          : "https://twitter.com/"+ this.following[this.counter].username;
+        
         window.open(link);
       },
       next() {
